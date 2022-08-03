@@ -4,6 +4,7 @@ import com.ll.exam.article.controller.ArticleController;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,5 +29,13 @@ public class AppTest {
         ArticleController articleController2 = Container.getArticleController();
 
         assertThat(articleController2).isEqualTo(articleController1);
+    }
+
+    @Test
+    public void ioc__Controller들을_스캔하여_수집() {
+       List<String> names = Container.getControllerNames();
+
+       assertThat(names).contains("home");
+       assertThat(names).contains("article");
     }
 }
