@@ -1,6 +1,7 @@
 package com.ll.exam;
 
 import com.ll.exam.article.controller.ArticleController;
+import com.ll.exam.home.controller.HomeController;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -31,11 +32,26 @@ public class AppTest {
         assertThat(articleController2).isEqualTo(articleController1);
     }
 
+
+    @Test
+    public void ioc__homeController() {
+        HomeController homeController = Container.getHomeController();
+
+        assertThat(homeController).isNotNull();
+    }
+
+    @Test
+    public void ioc__homeController__싱글톤() {
+        HomeController homeController1 = Container.getHomeController();
+        HomeController homeController2 = Container.getHomeController();
+
+        assertThat(homeController2).isEqualTo(homeController1);
+    }
     @Test
     public void ioc__Controller들을_스캔하여_수집() {
-       List<String> names = Container.getControllerNames();
+        List<String> names = Container.getControllerNames();
 
-       assertThat(names).contains("home");
-       assertThat(names).contains("article");
+        assertThat(names).contains("home");
+        assertThat(names).contains("article");
     }
 }
