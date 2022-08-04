@@ -14,6 +14,7 @@ public class DispatchServlet extends HttpServlet {
     //조회
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+        ControllerManager.runAction(req, resp);
     }
 
     //등록

@@ -18,4 +18,8 @@ public class ArticleController {
 
     }
 
+    @GetMapping("/usr/article/detail/{boardCode}")
+    public void showDetail() {
+
+    }
 }
