@@ -2,6 +2,7 @@ package com.ll.exam;
 
 import com.ll.exam.annotation.Autowired;
 import com.ll.exam.annotation.Controller;
+import com.ll.exam.annotation.Repository;
 import com.ll.exam.annotation.Service;
 import com.ll.exam.article.controller.ArticleController;
 import com.ll.exam.home.controller.HomeController;
@@ -20,12 +21,14 @@ public class Container {
     }
 
     private static void scanComponents() {
+        scanRepository();
         scanServices();
         scanControllers();
         
         // 조립
         resolveDependenciesAllComponents();
     }
+
 
     private static void resolveDependenciesAllComponents() {
         for (Class cls : objects.keySet()) {
@@ -55,16 +58,23 @@ public class Container {
                 });
     }
 
+    private static void scanRepository() {
+        Reflections ref = new Reflections(App.BASE_PACKAGE_PATH);
+        for (Class<?> cls : ref.getTypesAnnotatedWith(Repository.class)) {
+            objects.put(cls, Ut.cls.newObj(cls, null));
+        }
+    }
+
 
     private static void scanServices() {
-        Reflections ref = new Reflections("com.ll.exam");
+        Reflections ref = new Reflections(App.BASE_PACKAGE_PATH);
         for (Class<?> cls : ref.getTypesAnnotatedWith(Service.class)) {
             objects.put(cls, Ut.cls.newObj(cls, null));
         }
     }
 
     private static void scanControllers() {
-        Reflections ref = new Reflections("com.ll.exam");
+        Reflections ref = new Reflections(App.BASE_PACKAGE_PATH);
         for (Class<?> cls : ref.getTypesAnnotatedWith(Controller.class)) {
             objects.put(cls, Ut.cls.newObj(cls, null));
         }
