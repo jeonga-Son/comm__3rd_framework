@@ -1,5 +1,6 @@
 package com.ll.exam;
 
+import com.ll.exam.article.dto.ArticleDto;
 import com.ll.exam.mymap.MyMap;
 import com.ll.exam.mymap.SecSql;
 import org.junit.jupiter.api.BeforeAll;
@@ -182,7 +183,7 @@ class MyMapTest {
         SecSql sql = myMap.genSecSql();
         sql
                 .append("SELECT * FROM article WHERE id = 1");
-        ArticleDto articleDto = sql.selectRow(ArticleDto.class);
+        com.ll.exam.article.dto.ArticleDto articleDto = sql.selectRow(com.ll.exam.article.dto.ArticleDto.class);
 
         assertThat(articleDto.getId()).isEqualTo(1L);
         assertThat(articleDto.getTitle()).isEqualTo("제목1");
@@ -197,7 +198,7 @@ class MyMapTest {
         SecSql sql = myMap.genSecSql();
         sql
                 .append("SELECT * FROM article ORDER BY id ASC LIMIT 3");
-        List<ArticleDto> articleDtoList = sql.selectRows(ArticleDto.class);
+        List<com.ll.exam.article.dto.ArticleDto> articleDtoList = sql.selectRows(com.ll.exam.article.dto.ArticleDto.class);
 
         IntStream.range(0, articleDtoList.size()).forEach(i -> {
             long id = i + 1;
